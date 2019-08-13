@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lesson.sys.mapper.AccBusinessadmissibilityMapper">
+  <resultMap id="BaseResultMap" type="com.lesson.sys.entity.AccBusinessadmissibility">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="BusinessNoticeNo" jdbcType="VARCHAR" property="businessnoticeno" />
+    <result column="ReservationTime" jdbcType="TIMESTAMP" property="reservationtime" />
+    <result column="CustomName" jdbcType="VARCHAR" property="customname" />
+    <result column="PickupAddress" jdbcType="VARCHAR" property="pickupaddress" />
+    <result column="CustomCode" jdbcType="VARCHAR" property="customcode" />
+    <result column="Linkman" jdbcType="VARCHAR" property="linkman" />
+    <result column="TelPhone" jdbcType="VARCHAR" property="telphone" />
+    <result column="Weight" jdbcType="DECIMAL" property="weight" />
+    <result column="Volume" jdbcType="DECIMAL" property="volume" />
+    <result column="ImportantHints" jdbcType="VARCHAR" property="importanthints" />
+    <result column="ArriveCity" jdbcType="VARCHAR" property="arrivecity" />
+    <result column="PickerInfo" jdbcType="INTEGER" property="pickerinfo" />
+    <result column="SendAddress" jdbcType="VARCHAR" property="sendaddress" />
+    <result column="ProcessingUnit" jdbcType="INTEGER" property="processingunit" />
+    <result column="NotificationSource" jdbcType="INTEGER" property="notificationsource" />
+    <result column="CustomNoModifyFlag" jdbcType="INTEGER" property="customnomodifyflag" />
+    <result column="SingleType" jdbcType="VARCHAR" property="singletype" />
+    <result column="PackagesNum" jdbcType="INTEGER" property="packagesnum" />
+    <result column="ActualWeight" jdbcType="DECIMAL" property="actualweight" />
+    <result column="BillingWeight" jdbcType="DECIMAL" property="billingweight" />
+    <result column="PackingFee" jdbcType="DOUBLE" property="packingfee" />
+    <result column="ActualPacking" jdbcType="INTEGER" property="actualpacking" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, BusinessNoticeNo, ReservationTime, CustomName, PickupAddress, CustomCode, Linkman, 
+    TelPhone, Weight, Volume, ImportantHints, ArriveCity, PickerInfo, SendAddress, ProcessingUnit, 
+    NotificationSource, CustomNoModifyFlag, SingleType, PackagesNum, ActualWeight, BillingWeight, 
+    PackingFee, ActualPacking
+  </sql>
+  <select id="selectByExample" parameterType="com.lesson.sys.entity.AccBusinessadmissibilityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from acc_businessadmissibility
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+
+  <!--业务通知单对应的工单表map -->
+  <resultMap id="accBusinessadmissibilityAndAccWorkorderResultMap" type="accBusinessadmissibility">
+    <id column="id"  property="id" />
+    <result column="abBusinessNoticeNo" property="businessnoticeno" />
+    <result column="ReservationTime"  property="reservationtime" />
+    <result column="CustomName" property="customname" />
+    <result column="PickupAddress"  property="pickupaddress" />
+    <result column="CustomCode" property="customcode" />
+    <result column="Linkman" property="linkman" />
+    <result column="TelPhone" property="telphone" />
+    <result column="ImportantHints"  property="importanthints" />
+    <result column="ArriveCity" property="arrivecity" />
+    <result column="PickerInfo"  property="pickerinfo" />
+    <result column="SendAddress"  property="sendaddress" />
+    <result column="ProcessingUnit"  property="processingunit" />
+    <result column="NotificationSource" property="notificationsource" />
+    <result column="CustomNoModifyFlag" property="customnomodifyflag" />
+    <result column="SingleType"  property="singletype" />
+    <result column="sysDeptName" property="name" />
+    <result column="username"  property="username" />
+    <association property="accWorkorder" javaType="accWorkorder">
+      <id column="ID"  property="id" />
+      <result column="awBusinessNoticeNo" property="businessnoticeno" />
+      <result column="JobNo" property="jobno" />
+      <result column="JobType"  property="jobtype" />
+      <result column="PickupStatus"  property="pickupstatus" />
+      <result column="ShortMessageInt"  property="shortmessageint" />
+      <result column="WorkGenerationTime"  property="workgenerationtime" />
+      <result column="AfterSingleNum"  property="aftersinglenum" />
+      <result column="PickupUnit"  property="pickupunit" />
+      <result column="PickupTime"  property="pickuptime" />
+    </association>
+
+  </resultMap>
+
+  <!--查询业务通知单对应的工单表 -->
+  <select id="queryAccBusinessadmissibilityAndAccWorkorder" resultMap="accBusinessadmissibilityAndAccWorkorderResultMap">
+      select ab.BusinessNoticeNo abBusinessNoticeNo,ReservationTime,CustomName,PickupAddress,CustomCode,Linkman,TelPhone,ImportantHints,ArriveCity,PickerInfo,SendAddress,ProcessingUnit,NotificationSource,CustomNoModifyFlag,SingleType,
+      aw.BusinessNoticeNo awBusinessNoticeNo,JobNo,JobType,PickupStatus,ShortMessageInt,WorkGenerationTime,AfterSingleNum,PickupUnit,PickupTime,
+      sd.`name`,su.username
+      from acc_businessadmissibility ab
+      INNER JOIN acc_workorder aw ON ab.BusinessNoticeNo = aw.BusinessNoticeNo
+      INNER JOIN sys_dept sd ON ab.ProcessingUnit = sd.id
+      INNER JOIN sys_user su ON ab.PickerInfo = su.id
+      where aw.JobType &lt;&gt; 3 and aw.PickupStatus &lt;&gt; 3;
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from acc_businessadmissibility
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from acc_businessadmissibility
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lesson.sys.entity.AccBusinessadmissibilityExample">
+    delete from acc_businessadmissibility
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lesson.sys.entity.AccBusinessadmissibility">
+    insert into acc_businessadmissibility (id, BusinessNoticeNo, ReservationTime, 
+      CustomName, PickupAddress, CustomCode, 
+      Linkman, TelPhone, Weight, 
+      Volume, ImportantHints, ArriveCity, 
+      PickerInfo, SendAddress, ProcessingUnit, 
+      NotificationSource, CustomNoModifyFlag, 
+      SingleType, PackagesNum, ActualWeight, 
+      BillingWeight, PackingFee, ActualPacking
+      )
+    values (#{id,jdbcType=INTEGER}, #{businessnoticeno,jdbcType=VARCHAR}, #{reservationtime,jdbcType=TIMESTAMP}, 
+      #{customname,jdbcType=VARCHAR}, #{pickupaddress,jdbcType=VARCHAR}, #{customcode,jdbcType=VARCHAR}, 
+      #{linkman,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, #{weight,jdbcType=DECIMAL}, 
+      #{volume,jdbcType=DECIMAL}, #{importanthints,jdbcType=VARCHAR}, #{arrivecity,jdbcType=VARCHAR}, 
+      #{pickerinfo,jdbcType=INTEGER}, #{sendaddress,jdbcType=VARCHAR}, #{processingunit,jdbcType=INTEGER}, 
+      #{notificationsource,jdbcType=INTEGER}, #{customnomodifyflag,jdbcType=INTEGER}, 
+      #{singletype,jdbcType=VARCHAR}, #{packagesnum,jdbcType=INTEGER}, #{actualweight,jdbcType=DECIMAL}, 
+      #{billingweight,jdbcType=DECIMAL}, #{packingfee,jdbcType=DOUBLE}, #{actualpacking,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lesson.sys.entity.AccBusinessadmissibility">
+    insert into acc_businessadmissibility
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="businessnoticeno != null">
+        BusinessNoticeNo,
+      </if>
+      <if test="reservationtime != null">
+        ReservationTime,
+      </if>
+      <if test="customname != null">
+        CustomName,
+      </if>
+      <if test="pickupaddress != null">
+        PickupAddress,
+      </if>
+      <if test="customcode != null">
+        CustomCode,
+      </if>
+      <if test="linkman != null">
+        Linkman,
+      </if>
+      <if test="telphone != null">
+        TelPhone,
+      </if>
+      <if test="weight != null">
+        Weight,
+      </if>
+      <if test="volume != null">
+        Volume,
+      </if>
+      <if test="importanthints != null">
+        ImportantHints,
+      </if>
+      <if test="arrivecity != null">
+        ArriveCity,
+      </if>
+      <if test="pickerinfo != null">
+        PickerInfo,
+      </if>
+      <if test="sendaddress != null">
+        SendAddress,
+      </if>
+      <if test="processingunit != null">
+        ProcessingUnit,
+      </if>
+      <if test="notificationsource != null">
+        NotificationSource,
+      </if>
+      <if test="customnomodifyflag != null">
+        CustomNoModifyFlag,
+      </if>
+      <if test="singletype != null">
+        SingleType,
+      </if>
+      <if test="packagesnum != null">
+        PackagesNum,
+      </if>
+      <if test="actualweight != null">
+        ActualWeight,
+      </if>
+      <if test="billingweight != null">
+        BillingWeight,
+      </if>
+      <if test="packingfee != null">
+        PackingFee,
+      </if>
+      <if test="actualpacking != null">
+        ActualPacking,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="businessnoticeno != null">
+        #{businessnoticeno,jdbcType=VARCHAR},
+      </if>
+      <if test="reservationtime != null">
+        #{reservationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customname != null">
+        #{customname,jdbcType=VARCHAR},
+      </if>
+      <if test="pickupaddress != null">
+        #{pickupaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="customcode != null">
+        #{customcode,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null">
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null">
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="volume != null">
+        #{volume,jdbcType=DECIMAL},
+      </if>
+      <if test="importanthints != null">
+        #{importanthints,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivecity != null">
+        #{arrivecity,jdbcType=VARCHAR},
+      </if>
+      <if test="pickerinfo != null">
+        #{pickerinfo,jdbcType=INTEGER},
+      </if>
+      <if test="sendaddress != null">
+        #{sendaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="processingunit != null">
+        #{processingunit,jdbcType=INTEGER},
+      </if>
+      <if test="notificationsource != null">
+        #{notificationsource,jdbcType=INTEGER},
+      </if>
+      <if test="customnomodifyflag != null">
+        #{customnomodifyflag,jdbcType=INTEGER},
+      </if>
+      <if test="singletype != null">
+        #{singletype,jdbcType=VARCHAR},
+      </if>
+      <if test="packagesnum != null">
+        #{packagesnum,jdbcType=INTEGER},
+      </if>
+      <if test="actualweight != null">
+        #{actualweight,jdbcType=DECIMAL},
+      </if>
+      <if test="billingweight != null">
+        #{billingweight,jdbcType=DECIMAL},
+      </if>
+      <if test="packingfee != null">
+        #{packingfee,jdbcType=DOUBLE},
+      </if>
+      <if test="actualpacking != null">
+        #{actualpacking,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lesson.sys.entity.AccBusinessadmissibilityExample" resultType="java.lang.Long">
+    select count(*) from acc_businessadmissibility
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update acc_businessadmissibility
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessnoticeno != null">
+        BusinessNoticeNo = #{record.businessnoticeno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reservationtime != null">
+        ReservationTime = #{record.reservationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.customname != null">
+        CustomName = #{record.customname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pickupaddress != null">
+        PickupAddress = #{record.pickupaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customcode != null">
+        CustomCode = #{record.customcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkman != null">
+        Linkman = #{record.linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telphone != null">
+        TelPhone = #{record.telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null">
+        Weight = #{record.weight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.volume != null">
+        Volume = #{record.volume,jdbcType=DECIMAL},
+      </if>
+      <if test="record.importanthints != null">
+        ImportantHints = #{record.importanthints,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arrivecity != null">
+        ArriveCity = #{record.arrivecity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pickerinfo != null">
+        PickerInfo = #{record.pickerinfo,jdbcType=INTEGER},
+      </if>
+      <if test="record.sendaddress != null">
+        SendAddress = #{record.sendaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processingunit != null">
+        ProcessingUnit = #{record.processingunit,jdbcType=INTEGER},
+      </if>
+      <if test="record.notificationsource != null">
+        NotificationSource = #{record.notificationsource,jdbcType=INTEGER},
+      </if>
+      <if test="record.customnomodifyflag != null">
+        CustomNoModifyFlag = #{record.customnomodifyflag,jdbcType=INTEGER},
+      </if>
+      <if test="record.singletype != null">
+        SingleType = #{record.singletype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packagesnum != null">
+        PackagesNum = #{record.packagesnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.actualweight != null">
+        ActualWeight = #{record.actualweight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.billingweight != null">
+        BillingWeight = #{record.billingweight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.packingfee != null">
+        PackingFee = #{record.packingfee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.actualpacking != null">
+        ActualPacking = #{record.actualpacking,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update acc_businessadmissibility
+    set id = #{record.id,jdbcType=INTEGER},
+      BusinessNoticeNo = #{record.businessnoticeno,jdbcType=VARCHAR},
+      ReservationTime = #{record.reservationtime,jdbcType=TIMESTAMP},
+      CustomName = #{record.customname,jdbcType=VARCHAR},
+      PickupAddress = #{record.pickupaddress,jdbcType=VARCHAR},
+      CustomCode = #{record.customcode,jdbcType=VARCHAR},
+      Linkman = #{record.linkman,jdbcType=VARCHAR},
+      TelPhone = #{record.telphone,jdbcType=VARCHAR},
+      Weight = #{record.weight,jdbcType=DECIMAL},
+      Volume = #{record.volume,jdbcType=DECIMAL},
+      ImportantHints = #{record.importanthints,jdbcType=VARCHAR},
+      ArriveCity = #{record.arrivecity,jdbcType=VARCHAR},
+      PickerInfo = #{record.pickerinfo,jdbcType=INTEGER},
+      SendAddress = #{record.sendaddress,jdbcType=VARCHAR},
+      ProcessingUnit = #{record.processingunit,jdbcType=INTEGER},
+      NotificationSource = #{record.notificationsource,jdbcType=INTEGER},
+      CustomNoModifyFlag = #{record.customnomodifyflag,jdbcType=INTEGER},
+      SingleType = #{record.singletype,jdbcType=VARCHAR},
+      PackagesNum = #{record.packagesnum,jdbcType=INTEGER},
+      ActualWeight = #{record.actualweight,jdbcType=DECIMAL},
+      BillingWeight = #{record.billingweight,jdbcType=DECIMAL},
+      PackingFee = #{record.packingfee,jdbcType=DOUBLE},
+      ActualPacking = #{record.actualpacking,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lesson.sys.entity.AccBusinessadmissibility">
+    update acc_businessadmissibility
+    <set>
+      <if test="businessnoticeno != null">
+        BusinessNoticeNo = #{businessnoticeno,jdbcType=VARCHAR},
+      </if>
+      <if test="reservationtime != null">
+        ReservationTime = #{reservationtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customname != null">
+        CustomName = #{customname,jdbcType=VARCHAR},
+      </if>
+      <if test="pickupaddress != null">
+        PickupAddress = #{pickupaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="customcode != null">
+        CustomCode = #{customcode,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null">
+        Linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null">
+        TelPhone = #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        Weight = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="volume != null">
+        Volume = #{volume,jdbcType=DECIMAL},
+      </if>
+      <if test="importanthints != null">
+        ImportantHints = #{importanthints,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivecity != null">
+        ArriveCity = #{arrivecity,jdbcType=VARCHAR},
+      </if>
+      <if test="pickerinfo != null">
+        PickerInfo = #{pickerinfo,jdbcType=INTEGER},
+      </if>
+      <if test="sendaddress != null">
+        SendAddress = #{sendaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="processingunit != null">
+        ProcessingUnit = #{processingunit,jdbcType=INTEGER},
+      </if>
+      <if test="notificationsource != null">
+        NotificationSource = #{notificationsource,jdbcType=INTEGER},
+      </if>
+      <if test="customnomodifyflag != null">
+        CustomNoModifyFlag = #{customnomodifyflag,jdbcType=INTEGER},
+      </if>
+      <if test="singletype != null">
+        SingleType = #{singletype,jdbcType=VARCHAR},
+      </if>
+      <if test="packagesnum != null">
+        PackagesNum = #{packagesnum,jdbcType=INTEGER},
+      </if>
+      <if test="actualweight != null">
+        ActualWeight = #{actualweight,jdbcType=DECIMAL},
+      </if>
+      <if test="billingweight != null">
+        BillingWeight = #{billingweight,jdbcType=DECIMAL},
+      </if>
+      <if test="packingfee != null">
+        PackingFee = #{packingfee,jdbcType=DOUBLE},
+      </if>
+      <if test="actualpacking != null">
+        ActualPacking = #{actualpacking,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lesson.sys.entity.AccBusinessadmissibility">
+    update acc_businessadmissibility
+    set BusinessNoticeNo = #{businessnoticeno,jdbcType=VARCHAR},
+      ReservationTime = #{reservationtime,jdbcType=TIMESTAMP},
+      CustomName = #{customname,jdbcType=VARCHAR},
+      PickupAddress = #{pickupaddress,jdbcType=VARCHAR},
+      CustomCode = #{customcode,jdbcType=VARCHAR},
+      Linkman = #{linkman,jdbcType=VARCHAR},
+      TelPhone = #{telphone,jdbcType=VARCHAR},
+      Weight = #{weight,jdbcType=DECIMAL},
+      Volume = #{volume,jdbcType=DECIMAL},
+      ImportantHints = #{importanthints,jdbcType=VARCHAR},
+      ArriveCity = #{arrivecity,jdbcType=VARCHAR},
+      PickerInfo = #{pickerinfo,jdbcType=INTEGER},
+      SendAddress = #{sendaddress,jdbcType=VARCHAR},
+      ProcessingUnit = #{processingunit,jdbcType=INTEGER},
+      NotificationSource = #{notificationsource,jdbcType=INTEGER},
+      CustomNoModifyFlag = #{customnomodifyflag,jdbcType=INTEGER},
+      SingleType = #{singletype,jdbcType=VARCHAR},
+      PackagesNum = #{packagesnum,jdbcType=INTEGER},
+      ActualWeight = #{actualweight,jdbcType=DECIMAL},
+      BillingWeight = #{billingweight,jdbcType=DECIMAL},
+      PackingFee = #{packingfee,jdbcType=DOUBLE},
+      ActualPacking = #{actualpacking,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

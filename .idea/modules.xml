@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/bos-ui/bos-ui.iml" filepath="$PROJECT_DIR$/bos-ui/bos-ui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bosUi/bosUi.iml" filepath="$PROJECT_DIR$/bosUi/bosUi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dis/dis.iml" filepath="$PROJECT_DIR$/dis/dis.iml" />
+    </modules>
+  </component>
+</project>

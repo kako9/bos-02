@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lesson.Return.mapper.IaeArrivalMapper">
+  <resultMap id="BaseResultMap" type="com.lesson.Return.entity.IaeArrival">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="SendCompany" jdbcType="VARCHAR" property="sendcompany" />
+    <result column="consignee" jdbcType="VARCHAR" property="consignee" />
+    <result column="CargoAddress" jdbcType="VARCHAR" property="cargoaddress" />
+    <result column="IssuePerson" jdbcType="VARCHAR" property="issueperson" />
+    <result column="IssueDate" jdbcType="TIMESTAMP" property="issuedate" />
+    <result column="WorkAddress" jdbcType="VARCHAR" property="workaddress" />
+    <result column="StorageDate" jdbcType="TIMESTAMP" property="storagedate" />
+    <result column="OutBoundDate" jdbcType="TIMESTAMP" property="outbounddate" />
+    <result column="failure" jdbcType="VARCHAR" property="failure" />
+    <result column="TimeLimit" jdbcType="TIMESTAMP" property="timelimit" />
+    <result column="Batch" jdbcType="VARCHAR" property="batch" />
+    <result column="GoodsState" jdbcType="VARCHAR" property="goodsstate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, SendCompany, consignee, CargoAddress, IssuePerson, IssueDate, WorkAddress, StorageDate, 
+    OutBoundDate, failure, TimeLimit, Batch, GoodsState
+  </sql>
+  <select id="selectByExample" parameterType="com.lesson.Return.entity.IaeArrivalExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from iae_arrival
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from iae_arrival
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from iae_arrival
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lesson.Return.entity.IaeArrivalExample">
+    delete from iae_arrival
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lesson.Return.entity.IaeArrival">
+    insert into iae_arrival (id, SendCompany, consignee, 
+      CargoAddress, IssuePerson, IssueDate, 
+      WorkAddress, StorageDate, OutBoundDate, 
+      failure, TimeLimit, Batch, 
+      GoodsState)
+    values (#{id,jdbcType=VARCHAR}, #{sendcompany,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR}, 
+      #{cargoaddress,jdbcType=VARCHAR}, #{issueperson,jdbcType=VARCHAR}, #{issuedate,jdbcType=TIMESTAMP}, 
+      #{workaddress,jdbcType=VARCHAR}, #{storagedate,jdbcType=TIMESTAMP}, #{outbounddate,jdbcType=TIMESTAMP}, 
+      #{failure,jdbcType=VARCHAR}, #{timelimit,jdbcType=TIMESTAMP}, #{batch,jdbcType=VARCHAR}, 
+      #{goodsstate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lesson.Return.entity.IaeArrival">
+    insert into iae_arrival
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sendcompany != null">
+        SendCompany,
+      </if>
+      <if test="consignee != null">
+        consignee,
+      </if>
+      <if test="cargoaddress != null">
+        CargoAddress,
+      </if>
+      <if test="issueperson != null">
+        IssuePerson,
+      </if>
+      <if test="issuedate != null">
+        IssueDate,
+      </if>
+      <if test="workaddress != null">
+        WorkAddress,
+      </if>
+      <if test="storagedate != null">
+        StorageDate,
+      </if>
+      <if test="outbounddate != null">
+        OutBoundDate,
+      </if>
+      <if test="failure != null">
+        failure,
+      </if>
+      <if test="timelimit != null">
+        TimeLimit,
+      </if>
+      <if test="batch != null">
+        Batch,
+      </if>
+      <if test="goodsstate != null">
+        GoodsState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="sendcompany != null">
+        #{sendcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null">
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoaddress != null">
+        #{cargoaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="issueperson != null">
+        #{issueperson,jdbcType=VARCHAR},
+      </if>
+      <if test="issuedate != null">
+        #{issuedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workaddress != null">
+        #{workaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storagedate != null">
+        #{storagedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outbounddate != null">
+        #{outbounddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="failure != null">
+        #{failure,jdbcType=VARCHAR},
+      </if>
+      <if test="timelimit != null">
+        #{timelimit,jdbcType=TIMESTAMP},
+      </if>
+      <if test="batch != null">
+        #{batch,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsstate != null">
+        #{goodsstate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lesson.Return.entity.IaeArrivalExample" resultType="java.lang.Long">
+    select count(*) from iae_arrival
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update iae_arrival
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendcompany != null">
+        SendCompany = #{record.sendcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consignee != null">
+        consignee = #{record.consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cargoaddress != null">
+        CargoAddress = #{record.cargoaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issueperson != null">
+        IssuePerson = #{record.issueperson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issuedate != null">
+        IssueDate = #{record.issuedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.workaddress != null">
+        WorkAddress = #{record.workaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storagedate != null">
+        StorageDate = #{record.storagedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.outbounddate != null">
+        OutBoundDate = #{record.outbounddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.failure != null">
+        failure = #{record.failure,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timelimit != null">
+        TimeLimit = #{record.timelimit,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.batch != null">
+        Batch = #{record.batch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsstate != null">
+        GoodsState = #{record.goodsstate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update iae_arrival
+    set id = #{record.id,jdbcType=VARCHAR},
+      SendCompany = #{record.sendcompany,jdbcType=VARCHAR},
+      consignee = #{record.consignee,jdbcType=VARCHAR},
+      CargoAddress = #{record.cargoaddress,jdbcType=VARCHAR},
+      IssuePerson = #{record.issueperson,jdbcType=VARCHAR},
+      IssueDate = #{record.issuedate,jdbcType=TIMESTAMP},
+      WorkAddress = #{record.workaddress,jdbcType=VARCHAR},
+      StorageDate = #{record.storagedate,jdbcType=TIMESTAMP},
+      OutBoundDate = #{record.outbounddate,jdbcType=TIMESTAMP},
+      failure = #{record.failure,jdbcType=VARCHAR},
+      TimeLimit = #{record.timelimit,jdbcType=TIMESTAMP},
+      Batch = #{record.batch,jdbcType=VARCHAR},
+      GoodsState = #{record.goodsstate,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lesson.Return.entity.IaeArrival">
+    update iae_arrival
+    <set>
+      <if test="sendcompany != null">
+        SendCompany = #{sendcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null">
+        consignee = #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoaddress != null">
+        CargoAddress = #{cargoaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="issueperson != null">
+        IssuePerson = #{issueperson,jdbcType=VARCHAR},
+      </if>
+      <if test="issuedate != null">
+        IssueDate = #{issuedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workaddress != null">
+        WorkAddress = #{workaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storagedate != null">
+        StorageDate = #{storagedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outbounddate != null">
+        OutBoundDate = #{outbounddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="failure != null">
+        failure = #{failure,jdbcType=VARCHAR},
+      </if>
+      <if test="timelimit != null">
+        TimeLimit = #{timelimit,jdbcType=TIMESTAMP},
+      </if>
+      <if test="batch != null">
+        Batch = #{batch,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsstate != null">
+        GoodsState = #{goodsstate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lesson.Return.entity.IaeArrival">
+    update iae_arrival
+    set SendCompany = #{sendcompany,jdbcType=VARCHAR},
+      consignee = #{consignee,jdbcType=VARCHAR},
+      CargoAddress = #{cargoaddress,jdbcType=VARCHAR},
+      IssuePerson = #{issueperson,jdbcType=VARCHAR},
+      IssueDate = #{issuedate,jdbcType=TIMESTAMP},
+      WorkAddress = #{workaddress,jdbcType=VARCHAR},
+      StorageDate = #{storagedate,jdbcType=TIMESTAMP},
+      OutBoundDate = #{outbounddate,jdbcType=TIMESTAMP},
+      failure = #{failure,jdbcType=VARCHAR},
+      TimeLimit = #{timelimit,jdbcType=TIMESTAMP},
+      Batch = #{batch,jdbcType=VARCHAR},
+      GoodsState = #{goodsstate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

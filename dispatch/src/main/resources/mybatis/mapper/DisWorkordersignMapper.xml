@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lesson.sys.mapper.DisWorkordersignMapper">
+  <resultMap id="BaseResultMap" type="com.lesson.sys.entity.DisWorkordersign">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="WorkOrderID" jdbcType="VARCHAR" property="workorderid" />
+    <result column="WorkSheetNo" jdbcType="VARCHAR" property="worksheetno" />
+    <result column="WorkOrderType" jdbcType="INTEGER" property="workordertype" />
+    <result column="SignType" jdbcType="INTEGER" property="signtype" />
+    <result column="CourierInt" jdbcType="INTEGER" property="courierint" />
+    <result column="CourierName" jdbcType="VARCHAR" property="couriername" />
+    <result column="Recipient" jdbcType="VARCHAR" property="recipient" />
+    <result column="SignUnit" jdbcType="INTEGER" property="signunit" />
+    <result column="SignTime" jdbcType="TIMESTAMP" property="signtime" />
+    <result column="InvalidateMark" jdbcType="INTEGER" property="invalidatemark" />
+    <result column="AbnormalMark" jdbcType="VARCHAR" property="abnormalmark" />
+    <result column="InputPersonCode" jdbcType="INTEGER" property="inputpersoncode" />
+    <result column="InputPersonID" jdbcType="INTEGER" property="inputpersonid" />
+    <result column="InputID" jdbcType="INTEGER" property="inputid" />
+    <result column="InputTime" jdbcType="TIMESTAMP" property="inputtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, WorkOrderID, WorkSheetNo, WorkOrderType, SignType, CourierInt, CourierName, Recipient, 
+    SignUnit, SignTime, InvalidateMark, AbnormalMark, InputPersonCode, InputPersonID, 
+    InputID, InputTime
+  </sql>
+  <select id="selectByExample" parameterType="com.lesson.sys.entity.DisWorkordersignExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dis_workordersign
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dis_workordersign
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dis_workordersign
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lesson.sys.entity.DisWorkordersignExample">
+    delete from dis_workordersign
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lesson.sys.entity.DisWorkordersign">
+    insert into dis_workordersign (id, WorkOrderID, WorkSheetNo, 
+      WorkOrderType, SignType, CourierInt, 
+      CourierName, Recipient, SignUnit, 
+      SignTime, InvalidateMark, AbnormalMark, 
+      InputPersonCode, InputPersonID, InputID, 
+      InputTime)
+    values (#{id,jdbcType=INTEGER}, #{workorderid,jdbcType=VARCHAR}, #{worksheetno,jdbcType=VARCHAR}, 
+      #{workordertype,jdbcType=INTEGER}, #{signtype,jdbcType=INTEGER}, #{courierint,jdbcType=INTEGER}, 
+      #{couriername,jdbcType=VARCHAR}, #{recipient,jdbcType=VARCHAR}, #{signunit,jdbcType=INTEGER}, 
+      #{signtime,jdbcType=TIMESTAMP}, #{invalidatemark,jdbcType=INTEGER}, #{abnormalmark,jdbcType=VARCHAR}, 
+      #{inputpersoncode,jdbcType=INTEGER}, #{inputpersonid,jdbcType=INTEGER}, #{inputid,jdbcType=INTEGER}, 
+      #{inputtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lesson.sys.entity.DisWorkordersign">
+    insert into dis_workordersign
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="workorderid != null">
+        WorkOrderID,
+      </if>
+      <if test="worksheetno != null">
+        WorkSheetNo,
+      </if>
+      <if test="workordertype != null">
+        WorkOrderType,
+      </if>
+      <if test="signtype != null">
+        SignType,
+      </if>
+      <if test="courierint != null">
+        CourierInt,
+      </if>
+      <if test="couriername != null">
+        CourierName,
+      </if>
+      <if test="recipient != null">
+        Recipient,
+      </if>
+      <if test="signunit != null">
+        SignUnit,
+      </if>
+      <if test="signtime != null">
+        SignTime,
+      </if>
+      <if test="invalidatemark != null">
+        InvalidateMark,
+      </if>
+      <if test="abnormalmark != null">
+        AbnormalMark,
+      </if>
+      <if test="inputpersoncode != null">
+        InputPersonCode,
+      </if>
+      <if test="inputpersonid != null">
+        InputPersonID,
+      </if>
+      <if test="inputid != null">
+        InputID,
+      </if>
+      <if test="inputtime != null">
+        InputTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="workorderid != null">
+        #{workorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="worksheetno != null">
+        #{worksheetno,jdbcType=VARCHAR},
+      </if>
+      <if test="workordertype != null">
+        #{workordertype,jdbcType=INTEGER},
+      </if>
+      <if test="signtype != null">
+        #{signtype,jdbcType=INTEGER},
+      </if>
+      <if test="courierint != null">
+        #{courierint,jdbcType=INTEGER},
+      </if>
+      <if test="couriername != null">
+        #{couriername,jdbcType=VARCHAR},
+      </if>
+      <if test="recipient != null">
+        #{recipient,jdbcType=VARCHAR},
+      </if>
+      <if test="signunit != null">
+        #{signunit,jdbcType=INTEGER},
+      </if>
+      <if test="signtime != null">
+        #{signtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invalidatemark != null">
+        #{invalidatemark,jdbcType=INTEGER},
+      </if>
+      <if test="abnormalmark != null">
+        #{abnormalmark,jdbcType=VARCHAR},
+      </if>
+      <if test="inputpersoncode != null">
+        #{inputpersoncode,jdbcType=INTEGER},
+      </if>
+      <if test="inputpersonid != null">
+        #{inputpersonid,jdbcType=INTEGER},
+      </if>
+      <if test="inputid != null">
+        #{inputid,jdbcType=INTEGER},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lesson.sys.entity.DisWorkordersignExample" resultType="java.lang.Long">
+    select count(*) from dis_workordersign
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dis_workordersign
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.workorderid != null">
+        WorkOrderID = #{record.workorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.worksheetno != null">
+        WorkSheetNo = #{record.worksheetno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workordertype != null">
+        WorkOrderType = #{record.workordertype,jdbcType=INTEGER},
+      </if>
+      <if test="record.signtype != null">
+        SignType = #{record.signtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.courierint != null">
+        CourierInt = #{record.courierint,jdbcType=INTEGER},
+      </if>
+      <if test="record.couriername != null">
+        CourierName = #{record.couriername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recipient != null">
+        Recipient = #{record.recipient,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signunit != null">
+        SignUnit = #{record.signunit,jdbcType=INTEGER},
+      </if>
+      <if test="record.signtime != null">
+        SignTime = #{record.signtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.invalidatemark != null">
+        InvalidateMark = #{record.invalidatemark,jdbcType=INTEGER},
+      </if>
+      <if test="record.abnormalmark != null">
+        AbnormalMark = #{record.abnormalmark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inputpersoncode != null">
+        InputPersonCode = #{record.inputpersoncode,jdbcType=INTEGER},
+      </if>
+      <if test="record.inputpersonid != null">
+        InputPersonID = #{record.inputpersonid,jdbcType=INTEGER},
+      </if>
+      <if test="record.inputid != null">
+        InputID = #{record.inputid,jdbcType=INTEGER},
+      </if>
+      <if test="record.inputtime != null">
+        InputTime = #{record.inputtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dis_workordersign
+    set id = #{record.id,jdbcType=INTEGER},
+      WorkOrderID = #{record.workorderid,jdbcType=VARCHAR},
+      WorkSheetNo = #{record.worksheetno,jdbcType=VARCHAR},
+      WorkOrderType = #{record.workordertype,jdbcType=INTEGER},
+      SignType = #{record.signtype,jdbcType=INTEGER},
+      CourierInt = #{record.courierint,jdbcType=INTEGER},
+      CourierName = #{record.couriername,jdbcType=VARCHAR},
+      Recipient = #{record.recipient,jdbcType=VARCHAR},
+      SignUnit = #{record.signunit,jdbcType=INTEGER},
+      SignTime = #{record.signtime,jdbcType=TIMESTAMP},
+      InvalidateMark = #{record.invalidatemark,jdbcType=INTEGER},
+      AbnormalMark = #{record.abnormalmark,jdbcType=VARCHAR},
+      InputPersonCode = #{record.inputpersoncode,jdbcType=INTEGER},
+      InputPersonID = #{record.inputpersonid,jdbcType=INTEGER},
+      InputID = #{record.inputid,jdbcType=INTEGER},
+      InputTime = #{record.inputtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lesson.sys.entity.DisWorkordersign">
+    update dis_workordersign
+    <set>
+      <if test="workorderid != null">
+        WorkOrderID = #{workorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="worksheetno != null">
+        WorkSheetNo = #{worksheetno,jdbcType=VARCHAR},
+      </if>
+      <if test="workordertype != null">
+        WorkOrderType = #{workordertype,jdbcType=INTEGER},
+      </if>
+      <if test="signtype != null">
+        SignType = #{signtype,jdbcType=INTEGER},
+      </if>
+      <if test="courierint != null">
+        CourierInt = #{courierint,jdbcType=INTEGER},
+      </if>
+      <if test="couriername != null">
+        CourierName = #{couriername,jdbcType=VARCHAR},
+      </if>
+      <if test="recipient != null">
+        Recipient = #{recipient,jdbcType=VARCHAR},
+      </if>
+      <if test="signunit != null">
+        SignUnit = #{signunit,jdbcType=INTEGER},
+      </if>
+      <if test="signtime != null">
+        SignTime = #{signtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invalidatemark != null">
+        InvalidateMark = #{invalidatemark,jdbcType=INTEGER},
+      </if>
+      <if test="abnormalmark != null">
+        AbnormalMark = #{abnormalmark,jdbcType=VARCHAR},
+      </if>
+      <if test="inputpersoncode != null">
+        InputPersonCode = #{inputpersoncode,jdbcType=INTEGER},
+      </if>
+      <if test="inputpersonid != null">
+        InputPersonID = #{inputpersonid,jdbcType=INTEGER},
+      </if>
+      <if test="inputid != null">
+        InputID = #{inputid,jdbcType=INTEGER},
+      </if>
+      <if test="inputtime != null">
+        InputTime = #{inputtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lesson.sys.entity.DisWorkordersign">
+    update dis_workordersign
+    set WorkOrderID = #{workorderid,jdbcType=VARCHAR},
+      WorkSheetNo = #{worksheetno,jdbcType=VARCHAR},
+      WorkOrderType = #{workordertype,jdbcType=INTEGER},
+      SignType = #{signtype,jdbcType=INTEGER},
+      CourierInt = #{courierint,jdbcType=INTEGER},
+      CourierName = #{couriername,jdbcType=VARCHAR},
+      Recipient = #{recipient,jdbcType=VARCHAR},
+      SignUnit = #{signunit,jdbcType=INTEGER},
+      SignTime = #{signtime,jdbcType=TIMESTAMP},
+      InvalidateMark = #{invalidatemark,jdbcType=INTEGER},
+      AbnormalMark = #{abnormalmark,jdbcType=VARCHAR},
+      InputPersonCode = #{inputpersoncode,jdbcType=INTEGER},
+      InputPersonID = #{inputpersonid,jdbcType=INTEGER},
+      InputID = #{inputid,jdbcType=INTEGER},
+      InputTime = #{inputtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
